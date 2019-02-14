@@ -4,7 +4,7 @@ For a given tree with binary observations at the tips, the *treeSeg* algorithm f
 
 The treeSeg algorithm is implemented as an R package.
 
-An example on how to use *treeSeg* can be found in the jupyter notebook in *illustrationTreeSeg.ipynb*.
+An example on how to use *treeSeg* can be found in the jupyter notebook *illustrationTreeSeg.ipynb*.
 
 
 # Help
