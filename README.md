@@ -1,6 +1,6 @@
 # treeSeg
 
-For a given tree with binary observations at the tips, the *treeSeg* algorithm finds a segmentation which corresponds to a set of inner nodes in the tree. The method is based on a multiscale approach. This controls the probability of overestimating the number of active nodes at level alpha and yields confidence statements for the set of active nodes and the phenotype probabilities. 
+For a given tree with binary or continuous observations at the tips, the *treeSeg* algorithm finds a segmentation which corresponds to a set of inner nodes in the tree. The method is based on a multiscale approach. This controls the probability of overestimating the number of active nodes at level alpha and yields confidence statements for the set of active nodes and the phenotype probabilities. 
 
 The treeSeg algorithm is implemented as an R package.
 
