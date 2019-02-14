@@ -1,0 +1,13 @@
+Package: treeSeg
+Title: Tree Segmentation
+Version: 0.1
+Authors@R: c(person("Merle", "Behr", role = c("aut", "cre"), email = "behr@berkeley.edu"))
+Maintainer: Merle Behr <behr@berkeley.edu>
+Description: For given phylogenetic tree with binary observations at the tips, performs segmentation which corresponds to a set of inner nodes in the tree. The method is based on a multiscale approach. This controls the probability of overestimating the number of active nodes at level alpha and yields confidence statements for the set of active nodes and the success probabilities. 
+Depends: R (>= 3.0.2), stepR (>= 2.0-2)
+License: GPL-3
+LazyData: true
+Imports: RcppArmadillo (>= 0.8.4), Rcpp, ape
+RoxygenNote: 6.0.1
+LinkingTo: Rcpp, RcppArmadillo
+NeedsCompilation: yes
