@@ -8,6 +8,7 @@ prepResult <- function(ans, y, tree){
   optcost <- ans$optcost
   root <- ans$root
   minI <- ans$minI[root]
+
   
   if(minI > length(comb[root][[1]][[1]]$comb)){
     mlSolNodes <- unique(get.ml.sol(comb[root][[1]][[1]]$comb, comb, minI))
@@ -26,6 +27,7 @@ prepResult <- function(ans, y, tree){
     #mlSolP[ind] <- max(min(mean(y[ind]), min(bou[indB,4])), max(bou[indB,3]))
     mlSolP[ind] <- max(min(mean(y[ind]), min(confBand[ind,2])), max(confBand[ind,1]))
   }
+  
   return(list(numbAN = minI, mlAN = mlSolNodes, mlP = mlSolP, confSetAN = confSet, confBandP = confBand))
 }
 

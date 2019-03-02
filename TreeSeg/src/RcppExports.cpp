@@ -41,6 +41,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// bouPos
+double bouPos(int ny, int li, int ri);
+RcppExport SEXP _treeSeg_bouPos(SEXP nySEXP, SEXP liSEXP, SEXP riSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type ny(nySEXP);
+    Rcpp::traits::input_parameter< int >::type li(liSEXP);
+    Rcpp::traits::input_parameter< int >::type ri(riSEXP);
+    rcpp_result_gen = Rcpp::wrap(bouPos(ny, li, ri));
+    return rcpp_result_gen;
+END_RCPP
+}
 // boundsCall
 List boundsCall(const Rcpp::NumericVector& x, double alpha, double q, int fam);
 RcppExport SEXP _treeSeg_boundsCall(SEXP xSEXP, SEXP alphaSEXP, SEXP qSEXP, SEXP famSEXP) {
@@ -52,19 +65,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type q(qSEXP);
     Rcpp::traits::input_parameter< int >::type fam(famSEXP);
     rcpp_result_gen = Rcpp::wrap(boundsCall(x, alpha, q, fam));
-    return rcpp_result_gen;
-END_RCPP
-}
-// bouPos
-double bouPos(int ny, int li, int ri);
-RcppExport SEXP _treeSeg_bouPos(SEXP nySEXP, SEXP liSEXP, SEXP riSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type ny(nySEXP);
-    Rcpp::traits::input_parameter< int >::type li(liSEXP);
-    Rcpp::traits::input_parameter< int >::type ri(riSEXP);
-    rcpp_result_gen = Rcpp::wrap(bouPos(ny, li, ri));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -271,8 +271,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treeSeg_addInMatrix", (DL_FUNC) &_treeSeg_addInMatrix, 2},
     {"_treeSeg_allComb", (DL_FUNC) &_treeSeg_allComb, 1},
     {"_treeSeg_ancestor", (DL_FUNC) &_treeSeg_ancestor, 2},
-    {"_treeSeg_boundsCall", (DL_FUNC) &_treeSeg_boundsCall, 4},
     {"_treeSeg_bouPos", (DL_FUNC) &_treeSeg_bouPos, 3},
+    {"_treeSeg_boundsCall", (DL_FUNC) &_treeSeg_boundsCall, 4},
     {"_treeSeg_colSums", (DL_FUNC) &_treeSeg_colSums, 1},
     {"_treeSeg_getNewCandidates", (DL_FUNC) &_treeSeg_getNewCandidates, 6},
     {"_treeSeg_getOffspringTip", (DL_FUNC) &_treeSeg_getOffspringTip, 2},

@@ -203,11 +203,12 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
   
   
   if(tipOrder == "cladewise"){
+    
   #modify results for original ordering of the tips
   #transform mlAN
   for(i in 1:length(ans$mlAN)){
     if(ans$mlAN[i] <= length(tree$tip.label)){
-      ans$mlAN[i] <- orderT[i]
+      ans$mlAN[i] <- orderT[ans$mlAN[i]]
     }
   }
   

@@ -17,7 +17,7 @@ double mlCost(NumericVector y, int fam){
   }
   if(fam == 1){
     for(int i = 0; i < n; i++){
-      cost+= -pow(y[i] - mean,2);
+      cost+= pow(y[i] - mean,2);
     }
   }
   

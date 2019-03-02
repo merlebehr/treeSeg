@@ -13,12 +13,12 @@ ancestor <- function(node, tree) {
     .Call('_treeSeg_ancestor', PACKAGE = 'treeSeg', node, tree)
 }
 
-boundsCall <- function(x, alpha, q, fam) {
-    .Call('_treeSeg_boundsCall', PACKAGE = 'treeSeg', x, alpha, q, fam)
-}
-
 bouPos <- function(ny, li, ri) {
     .Call('_treeSeg_bouPos', PACKAGE = 'treeSeg', ny, li, ri)
+}
+
+boundsCall <- function(x, alpha, q, fam) {
+    .Call('_treeSeg_boundsCall', PACKAGE = 'treeSeg', x, alpha, q, fam)
 }
 
 colSums <- function(X) {
