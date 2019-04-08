@@ -2,39 +2,43 @@
 % Please edit documentation in R/treeSeg.R
 \name{treeSeg}
 \alias{treeSeg}
-\title{Segmentation of tips based on underlying tree structure}
+\title{Segmentation of tip-observations from tree structure}
 \usage{
 treeSeg(y, tree, q, alpha, fam, tipOrder)
 }
 \arguments{
-\item{y}{observations, binary if \code{fam} equals "binomial" and numeric if \code{fam} equals "gauss". Missing data should be NA's for which predicted success probability is computed.}
+\item{y}{observations, binary if \code{fam} equals "binomial" and numeric if \code{fam} equals "gauss". 
+Missing data should be NA's for which predictions are computed.}
 
-\item{tree}{rooted tree object with tip labels \code{1:length(y)} of class phylo. The tip labels are assumed to be of consecutive order, such that for any inner node the offspring tips are of the form i, i+1, ..., j-1, j.}
+\item{tree}{rooted tree object with tip labels \code{1:length(y)} of class phylo. 
+The tip labels are assumed to be of consecutive order, such that for any inner node the offspring tips are of the form i, i+1, ..., j-1, j.}
 
 \item{q}{threshold parameter corresponding to \code{1-alpha} quantile of multiscale statistic}
 
 \item{alpha}{confidence level (if specified \code{q} is silently ignored)}
 
-\item{fam}{specifies distribution of data and can take either of the values "gauss" or "binomial" (default) where the letter assumes n=1, i.e. Bernoulli distribution}
+\item{fam}{specifies distribution of data and can take either of the values "gauss" or "binomial" (default) where the letter assumes n=1, 
+i.e. Bernoulli distribution}
 
-\item{tipOrder}{specifies ordering of tips and can take either of the values "cladewise" (default) or "unchanged". The former applies \code{ape::reorder.phylo(tree)} prior to analysis, to make outcome independent of tip ordering.}
+\item{tipOrder}{specifies ordering of tips and can take either of the values "cladewise" (default) or "unchanged". 
+The former applies \code{ape::reorder.phylo(tree)} prior to analysis, to make outcome independent of tip ordering.}
 }
 \value{
 A list with values \code{numbAN}, \code{mlAN}, \code{mlP}, \code{confSetAN}, 
 and \code{confBandP}.
 
-\item{numbAN}{single integer value which contains the number of estimated active nodes constituting \code{1-alpha} lower confidence bound}
+\item{numbAN}{single integer value which contains the number of estimated active nodes constituting a \code{1-alpha} lower confidence bound}
 \item{mlAN}{vector of integer values containing the estimated active nodes (maximum likelihood solution under multiscale constraint)}
-\item{mlP}{vector of numeric values between 0 and 1 with estimated success probabilities for tips}
+\item{mlP}{vector of numeric values between 0 and 1 with estimated success probabilities for tips when \code{fam = "binomial"} and vector of numeric values with estimated observational means for tips when \code{fam = "gauss"} }
 \item{confSetAN}{vector of integer values constituting \code{1-alpha} confidence set for active nodes}
-\item{confBandP}{matrix with two columns and number of rows equal to \code{length(y)} constituting \code{1-alpha} confidence band for success probabilites of observations \code{y}}
+\item{confBandP}{matrix with two columns and number of rows equal to \code{length(y)} constituting \code{1-alpha} confidence band for success probabilites and mean values, respectively, of observations \code{y}}
 }
 \description{
-For given phylogenetic tree with binary observations at the tips, 
+For a given tree with observations at the tips, 
 performs segmentation which corresponds to a set of inner nodes in the tree. 
 The method is based on a multiscale approach. This controls the probability of 
 overestimating the number of active nodes at level alpha and yields confidence statements 
-for the set of active nodes and the success probabilities.
+for the set of active nodes and the observational means (success probabilities for binary data).
 }
 \note{
 If neither \code{q} nor \code{alpha} is specified, \code{alpha = 0.1} is selected.

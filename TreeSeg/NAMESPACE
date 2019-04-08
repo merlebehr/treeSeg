@@ -3,6 +3,7 @@
 export(getOffspringTip)
 export(offspringAll)
 export(treeSeg)
+export(treeTest)
 import(stepR)
 importFrom(Rcpp,evalCpp)
 useDynLib(treeSeg)

@@ -76,7 +76,7 @@ List segTree(NumericVector y, List& tree, double q = NA_REAL, double alpha = 0.0
   
   while(calcSol<Nn){
     //for(r=0; r<10; ++r){
-    printf("solution computed for %d out of %d inner nodes. \n", calcSol, Nn);
+    //printf("solution computed for %d out of %d inner nodes. \n", calcSol, Nn);
     
     IntegerVector aanc(anc.length());       //new ancestors
     IntegerVector aancMiss(Nn+1);           //aux vector to check if all the off of a node appear in a level

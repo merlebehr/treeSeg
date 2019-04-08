@@ -1,12 +1,12 @@
 #include "treeseg.h"
 
-//' Offspring tips of given inner node
+//' Offspring tips of inner node
 //' 
-//' Gives back all tips of a \code{tree} which are an offspring of 
+//' Returns all tips of a \code{tree} which are an offspring of 
 //' a given \code{node} of the tree
-//' @param node single integer value which contrains the index of a node from \code{tree}
-//' @param tree rooted tree object
-//' @return Integer vector with all indeces of offspring tips of \code{node} in \code{tree}.
+//' @param node single integer value corresponding to the index of a node from \code{tree}
+//' @param tree rooted tree object of class phylo
+//' @return Integer vector with all indices of offspring tips of \code{node} in \code{tree}.
 //' @examples 
 //' library(ape)
 //' n <- 2 * 50

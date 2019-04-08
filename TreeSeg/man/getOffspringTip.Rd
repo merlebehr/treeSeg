@@ -2,20 +2,20 @@
 % Please edit documentation in R/RcppExports.R
 \name{getOffspringTip}
 \alias{getOffspringTip}
-\title{Offspring tips of given inner node}
+\title{Offspring tips of inner node}
 \usage{
 getOffspringTip(node, tree)
 }
 \arguments{
-\item{node}{single integer value which contrains the index of a node from \code{tree}}
+\item{node}{single integer value corresponding to the index of a node from \code{tree}}
 
-\item{tree}{rooted tree object}
+\item{tree}{rooted tree object of class phylo}
 }
 \value{
-Integer vector with all indeces of offspring tips of \code{node} in \code{tree}.
+Integer vector with all indices of offspring tips of \code{node} in \code{tree}.
 }
 \description{
-Gives back all tips of a \code{tree} which are an offspring of 
+Returns all tips of a \code{tree} which are an offspring of 
 a given \code{node} of the tree
 }
 \examples{

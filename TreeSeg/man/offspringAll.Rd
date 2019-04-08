@@ -2,12 +2,12 @@
 % Please edit documentation in R/RcppExports.R
 \name{offspringAll}
 \alias{offspringAll}
-\title{All offspring nodes of given inner node}
+\title{All offspring nodes of inner node}
 \usage{
 offspringAll(node, tree)
 }
 \arguments{
-\item{node}{single integer value which contrains the index of a node from \code{tree}}
+\item{node}{single integer value corresponding to the index of a node from \code{tree}}
 
 \item{tree}{rooted tree object}
 }
@@ -15,7 +15,7 @@ offspringAll(node, tree)
 Integer vector with all indeces of offspring nodes of \code{node} in \code{tree}.
 }
 \description{
-Gives back all nodes of a \code{tree} which are an offspring of 
+Returns all nodes of a \code{tree} which are an offspring of 
 a given \code{node} of the tree
 }
 \examples{

@@ -1,9 +1,9 @@
 #include "treeseg.h"
-//' All offspring nodes of given inner node
+//' All offspring nodes of inner node
 //' 
-//' Gives back all nodes of a \code{tree} which are an offspring of 
+//' Returns all nodes of a \code{tree} which are an offspring of 
 //' a given \code{node} of the tree
-//' @param node single integer value which contrains the index of a node from \code{tree}
+//' @param node single integer value corresponding to the index of a node from \code{tree}
 //' @param tree rooted tree object
 //' @return Integer vector with all indeces of offspring nodes of \code{node} in \code{tree}.
 //' @examples 
