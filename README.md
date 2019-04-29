@@ -10,7 +10,7 @@ The package can be installed in R using the commands:
 ```{r}
 install.packages('devtools')
 library(devtools)
-devtools::install_github(\"merlebehr/treeSeg\", subdir=\"TreeSeg\")
+devtools::install_github("merlebehr/treeSeg", subdir="TreeSeg")
 ```
 
 You should then be able to load the package with:
