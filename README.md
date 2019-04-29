@@ -17,8 +17,10 @@ You should then be able to load the package with:
 ```{r}
 library(treeSeg)
 ```
+Please see our R code in the testData directory to see an example of how to use the method and produce figures for an example transcriptomic micro-array dataset.
 
-An example on how to use *treeSeg* can be found in the jupyter notebook *illustrationTreeSeg.ipynb*.
+An example on how to use *treeSeg* on simulated data can be found in the jupyter notebook *illustrationTreeSeg.ipynb*.
+
 
 # Help
 Do contact us if you need any help with using the software or when you have suggestion on how to improve the implementation.
