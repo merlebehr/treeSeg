@@ -52,6 +52,10 @@ yGauss <- rnorm(n, p, sd = 0.1)
 ansGauss <- treeTest(yGauss, tree, alpha = 0.1, fam = "gauss")
 }
 \references{
+Behr, M., Ansari, M. A., Munk, A., Holmes, C. (2020)
+Testing for dependence on tree structures.
+bioRxiv:622811 
+
 Frick, K., Munk, A., Sieling, H. (2014) 
 Multiscale change-point inference. 
 With discussion and rejoinder by the authors. 

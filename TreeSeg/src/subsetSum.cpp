@@ -2,15 +2,17 @@
 
 // [[Rcpp::export]]
 List subsetSum (arma::umat numbers, IntegerVector target, int maxSize) {
+  //return all subset of rows from numbers which sum up to target
 
   List partial; //list of partial row indeces of numbers which is succesively updated
   List ans; //list with row index sets of numbers which sum up to target
+  
   unsigned i;
   int ncols= numbers.n_cols;
   IntegerVector S(ncols); //sum of partial rows 
   int alls;
   List help(maxSize);
-  
+
 
   //initialize list of partial indices
   for(i=0; i<numbers.n_rows; i++){
@@ -19,16 +21,10 @@ List subsetSum (arma::umat numbers, IntegerVector target, int maxSize) {
     partial.push_back(news);
   }
   
-  // int pSize = partial.size();
-  // printf("Initial length of partial is %d \n", pSize);
-  
+  int pSize = partial.size();
+  int anSize = ans.size();
+
   while(partial.size() > 0){
-    
-    //int pSize = partial.size();
-    //printf("\r Current partial list has size %d", pSize);
-    //fflush(stdout);
-    //printf(" Current partial List has size %d \n", pSize);
-   
     
     uvec parNodes = partial(0);
     
@@ -36,8 +32,10 @@ List subsetSum (arma::umat numbers, IntegerVector target, int maxSize) {
     partial.erase(partial.begin());
     
     
-    //pSize = partial.size();
-    //printf("After erase partial List has size %d \n", pSize);
+    if( pSize < partial.size() ){
+      pSize = partial.size();
+      anSize = ans.size();
+    }
     
     
     if(par.n_rows > 1){
@@ -52,8 +50,26 @@ List subsetSum (arma::umat numbers, IntegerVector target, int maxSize) {
           continue;
         }
       }
+      
+      //check whether non-related nodes would be violated
+      if( (S[0] == target[0]) && (alls == 0) ){
+        for(i = 0; i < (S.size() - 2); i++){
+          if((S[i + 1] == 0) && ( numbers(i,0) > 1)){
+            //printf("Violation neighboring condition \n");
+            alls = 1;
+            continue;
+          }
+        }
+      }
+      
+      
       if(alls==0){
         ans.push_back(par);
+        
+        anSize = ans.size();
+        //printf("Max ans List has size %d \n", anSize);
+        
+        
         if(ans.size() >= maxSize){
           return(help);
         }

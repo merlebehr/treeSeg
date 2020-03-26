@@ -2,7 +2,7 @@
 
 // [[Rcpp::export]]
 IntegerVector getOffspringTipB(int node, List tree){
-  // get offspring tip b
+  // get offspring tip bounds
   
   IntegerVector tip=getOffspringTip(node,tree);
   tip.sort();

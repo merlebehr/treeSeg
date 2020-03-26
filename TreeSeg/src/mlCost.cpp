@@ -2,7 +2,7 @@
 
 // [[Rcpp::export]]
 double mlCost(NumericVector y, int fam){
-  //cost of y, without an ordered unique vector
+  //cost of y
   
   int n = y.length();
   double mean = 0, cost = 0;

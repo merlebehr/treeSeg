@@ -4,7 +4,7 @@
 \alias{treeSeg}
 \title{Segmentation of tip-observations from tree structure}
 \usage{
-treeSeg(y, tree, q, alpha, fam, tipOrder)
+treeSeg(y, tree, q, alpha, fam, tipOrder, lengths, checkOrder = TRUE)
 }
 \arguments{
 \item{y}{observations, binary if \code{fam} equals "binomial" and numeric if \code{fam} equals "gauss". 
@@ -22,6 +22,10 @@ i.e. Bernoulli distribution}
 
 \item{tipOrder}{specifies ordering of tips and can take either of the values "cladewise" (default) or "unchanged". 
 The former applies \code{ape::reorder.phylo(tree)} prior to analysis, to make outcome independent of tip ordering.}
+
+\item{lengths}{length of intervals considered; can take either of the value "all" or "dyadic"; by default up to a sample size of 500 all lengths, otherwise only dyadic lengths, which gives a significant seep up in computation time.}
+
+\item{checkOrder}{\code{\link{logical}} (TRUE by default), indicates whether consecutive order of tip nodes should be checked.}
 }
 \value{
 A list with values \code{numbAN}, \code{mlAN}, \code{mlP}, \code{confSetAN}, 
@@ -58,11 +62,15 @@ yGauss <- rnorm(n, p, sd = 0.1)
 ansGauss <- treeSeg(yGauss, tree, alpha = 0.1, fam = "gauss")
 }
 \references{
+Behr, M., Ansari, M. A., Munk, A., Holmes, C. (2020)
+Testing for dependence on tree structures.
+bioRxiv:622811.
+
 Frick, K., Munk, A., Sieling, H. (2014) 
 Multiscale change-point inference. 
 With discussion and rejoinder by the authors. 
 Journal of the Royal Statistical Society, Series B 76(3), 495:580.
 }
 \seealso{
-\code{\link{getOffspringTip}}
+\code{\link{getOffspringTip}}, \code{\link{treeTest}}
 }

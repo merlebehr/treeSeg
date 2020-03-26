@@ -23,7 +23,7 @@ List prepTree(List& tree){
   }
   tree["root"]=root;
   
-  //Ancestor matrix
+  //add ancestor matrix
   NumericMatrix ancM(1,tipLabel.size());
   NumericVector anc(tipLabel.size());
   bool flag=false;

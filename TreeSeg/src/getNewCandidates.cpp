@@ -3,18 +3,19 @@
 // [[Rcpp::export]]
 List getNewCandidates(int subroot, int aN, List tree, IntegerVector minIVar, LogicalMatrix isOffMat, 
                       bool without){
+  // get all candidate solutions for given subroot with aN number of active nodes
+  // minimal number of active nodes at other nodes is given in minIVar
+  // logical matrix isOffMat indicates whether node i is offspring of node j
+  
   int i,j;
-  IntegerVector news= offspringAll(subroot, tree);
+  IntegerVector news= offspringAll(subroot, tree); // all offsprings nodes of subroot (candidates for new active nodes)
   news.push_front(subroot);
-  arma::umat numbers(news.length(),news.length()+2);
-  IntegerVector target(news.length()+1);
+  arma::umat numbers(news.length(), news.length()+2); // numbers that have to add up to target in subsetsub
+  IntegerVector target(news.length()+1); //target for subset sum
   target[0]=aN;
   
-  //printf("get new candidate with number of active nodes equal %d \n", aN);
-  //int helpNewsLength = news.length();
-  //printf("number of all active nodes in this subtree is %d \n", helpNewsLength);
   
-  int maxSize = 500000;
+  int maxSize = 500000; // maximal number of cadidate solutions feasible in terms of memory
   
   for(i=0; i<news.length(); i++){
     numbers(i,0)=minIVar[news[i]]+1;
@@ -24,23 +25,12 @@ List getNewCandidates(int subroot, int aN, List tree, IntegerVector minIVar, Log
       numbers(i,j)=isOffMat(news[i],news[j-1]);
     }
   }
-  //printf("now calling subsetSum New \n");
-  
-  //List ans = subsetSum(numbers, target, mat(0,0), List::create(), maxSize);
+
   List ans = subsetSum(numbers, target, maxSize);
   
-  //printf("now finished subsetSum New \n");
   
+  List final(0); //feasible candidates
   
-  List final(0);
-  
-  // if(ans.size() >= maxSize){
-  //   printf("problem size too large \n");
-  //   return(final);
-  // }
-  
-  //int help = ans.length();
-  //printf("Finished with %d candidates \n", help);
   
   for(i=0; i<ans.length(); i++){
     mat partialAns=ans[i];

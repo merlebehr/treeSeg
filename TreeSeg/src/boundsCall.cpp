@@ -1,26 +1,21 @@
 #include "treeseg.h"
+#include <cmath>
+
 
 
 // [[Rcpp::export]]
-List boundsCall(const Rcpp::NumericVector& x, double alpha, double q, int fam){
+List boundsCall(const Rcpp::NumericVector& x, const Rcpp::NumericVector& lengths, double alpha, double q, int fam){
   // calls the bounds function from the stepR package
-  
   
   
   // Obtain environment containing function
   Rcpp::Environment base("package:stepR"); 
   
   
-  
   // Make function callable from C++
   Rcpp::Function bounds_r = base["bounds"];    
   
-  int n=x.length();
-  int i;
-  NumericVector lengths(n);
-  for(i=0;i<n;i++){
-    lengths[i]=i+1;
-  }
+  
   List bounds(1);
   
   if(fam == 0){

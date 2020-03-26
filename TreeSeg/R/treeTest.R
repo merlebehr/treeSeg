@@ -33,6 +33,10 @@
 #' yGauss <- rnorm(n, p, sd = 0.1)
 #' ansGauss <- treeTest(yGauss, tree, alpha = 0.1, fam = "gauss")
 #' @references 
+#' Behr, M., Ansari, M. A., Munk, A., Holmes, C. (2020)
+#' Testing for dependence on tree structures.
+#' bioRxiv:622811 
+#' 
 #' Frick, K., Munk, A., Sieling, H. (2014) 
 #' Multiscale change-point inference. 
 #' With discussion and rejoinder by the authors. 
@@ -55,7 +59,7 @@ treeTest<- function(y, tree, q, alpha, fam, tipOrder){
       indexRange <- getOffspringTipB(i, tree)
       indexLength <- max(indexRange) - min(indexRange) + 1
       if(offspringLength != indexLength){
-        warning("Indexes of tip labels are not of consecutive order.") 
+        stop("Indexes of tip labels are not of consecutive order.") 
       }
     }
     
@@ -101,7 +105,7 @@ treeTest<- function(y, tree, q, alpha, fam, tipOrder){
   
   if(fam == "binomial"){
     if(!all(is.element(y, c(0,1)))){
-      warning("y must be binomial vector for fam = binomial")
+      stop("y must be binomial vector for fam = binomial (default)")
     }
   }
   

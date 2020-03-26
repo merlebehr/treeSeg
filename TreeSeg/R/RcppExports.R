@@ -13,12 +13,12 @@ ancestor <- function(node, tree) {
     .Call('_treeSeg_ancestor', PACKAGE = 'treeSeg', node, tree)
 }
 
-bouPos <- function(ny, li, ri) {
-    .Call('_treeSeg_bouPos', PACKAGE = 'treeSeg', ny, li, ri)
+bouPos <- function(li, ri, allInt, liStart) {
+    .Call('_treeSeg_bouPos', PACKAGE = 'treeSeg', li, ri, allInt, liStart)
 }
 
-boundsCall <- function(x, alpha, q, fam) {
-    .Call('_treeSeg_boundsCall', PACKAGE = 'treeSeg', x, alpha, q, fam)
+boundsCall <- function(x, lengths, alpha, q, fam) {
+    .Call('_treeSeg_boundsCall', PACKAGE = 'treeSeg', x, lengths, alpha, q, fam)
 }
 
 colSums <- function(X) {
@@ -97,8 +97,8 @@ prepTree <- function(tree) {
     .Call('_treeSeg_prepTree', PACKAGE = 'treeSeg', tree)
 }
 
-segTree <- function(y, tree, q = NA_real_, alpha = 0.05, fam = 0L) {
-    .Call('_treeSeg_segTree', PACKAGE = 'treeSeg', y, tree, q, alpha, fam)
+segTree <- function(y, lengths, tree, q = NA_real_, alpha = 0.05, fam = 0L) {
+    .Call('_treeSeg_segTree', PACKAGE = 'treeSeg', y, lengths, tree, q, alpha, fam)
 }
 
 sortComb <- function(ncomb, cost) {

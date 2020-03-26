@@ -16,6 +16,8 @@
 #' i.e. Bernoulli distribution
 #' @param tipOrder specifies ordering of tips and can take either of the values "cladewise" (default) or "unchanged". 
 #' The former applies \code{ape::reorder.phylo(tree)} prior to analysis, to make outcome independent of tip ordering.
+#' @param lengths length of intervals considered; can take either of the value "all" or "dyadic"; by default up to a sample size of 500 all lengths, otherwise only dyadic lengths, which gives a significant seep up in computation time.
+#' @param checkOrder \code{\link{logical}} (TRUE by default), indicates whether consecutive order of tip nodes should be checked. 
 #' @return A list with values \code{numbAN}, \code{mlAN}, \code{mlP}, \code{confSetAN}, 
 #' and \code{confBandP}.
 #' 
@@ -38,31 +40,48 @@
 #' yGauss <- rnorm(n, p, sd = 0.1)
 #' ansGauss <- treeSeg(yGauss, tree, alpha = 0.1, fam = "gauss")
 #' @references 
+#' Behr, M., Ansari, M. A., Munk, A., Holmes, C. (2020)
+#' Testing for dependence on tree structures.
+#' bioRxiv:622811.
+#' 
 #' Frick, K., Munk, A., Sieling, H. (2014) 
 #' Multiscale change-point inference. 
 #' With discussion and rejoinder by the authors. 
 #' Journal of the Royal Statistical Society, Series B 76(3), 495:580.
 #' @note If neither \code{q} nor \code{alpha} is specified, \code{alpha = 0.1} is selected.
-#' @seealso \code{\link{getOffspringTip}}
+#' @seealso \code{\link{getOffspringTip}}, \code{\link{treeTest}}
 #' @export
 #' @import stepR
 
-treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
+treeSeg<- function(y, tree, q, alpha, fam, tipOrder, lengths, checkOrder = TRUE){
   
   if(missing(tipOrder)){
     tipOrder = "cladewise"
   }
   
-  ### check if tips are of consecutive order
-  for(i in (length(tree$tip.label)+1):(length(tree$tip.label) + tree$Nnode)){
-    offspringLength <- length(getOffspringTip(i, tree))
-    indexRange <- getOffspringTipB(i, tree)
-    indexLength <- max(indexRange) - min(indexRange) + 1
-    if(offspringLength != indexLength){
-     warning("Indexes of tip labels are not of consecutive order.") 
-    }
+  if(missing(y)){
+    stop("Observations y are missing.")
   }
   
+  if(missing(tree)){
+    stop("Tree which gives neighborhood structure of observations y is missing.")
+  }
+  
+  if(checkOrder){
+    #print('check consecutive order of tip nodes')
+    ### check if tips are of consecutive order
+    for(i in (length(tree$tip.label)+1):(length(tree$tip.label) + tree$Nnode)){
+      offspringLength <- length(getOffspringTip(i, tree))
+      indexRange <- getOffspringTipB(i, tree)
+      indexLength <- max(indexRange) - min(indexRange) + 1
+      if(offspringLength != indexLength){
+        stop("Indexes of tip labels are not of consecutive order.") 
+      }
+    }
+    #print('done')
+  }
+  
+
   if(tipOrder == "cladewise"){
   #### reordering the tips
   tree <- ape::reorder.phylo(tree)
@@ -80,6 +99,7 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
  #### check if there is missing data
   missingData <- !all(!is.na(y))
   if(missingData){
+    print("Some data is missing and will be imputed.")
     indMiss <- which(is.na(y))
     orderTips <- which(!is.na(y))
     treeFull <- tree
@@ -93,12 +113,16 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
   }
 
   #### prepare tree
-  if(is.null(tree$ancM)){
-    tree <- prepTree(tree)
-  }
- 
+  # if(is.null(tree$ancM)){
+  #   tree <- prepTree(tree)
+  # }
+  
   if(missing(fam)){
     fam = "binomial"
+  }else{
+    if(!is.element(fam, c("binomial", "gauss"))){
+      stop("Currently only fam = binomial or gauss implemented.")
+    }
   }
   
   if(fam == "binomial"){
@@ -109,24 +133,51 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
   
   if(fam == 0){
     if(!all(is.element(y, c(0,1)))){
-      warning("y must be binomial vector for fam = binomial")
+      stop("y must be binomial vector for fam = binomial (default)")
     }
   }
     
-
+  
+  if(missing(lengths)){
+    if(length(y) <= 500){
+      # for less than 500 samples, consider all interval lengths
+      lengths <- "all"
+    }else{
+      # otherwise only consider dyadic interval lengths
+      lengths <- "dyadic"
+    }
+  }
+  
+  if(!is.element(lengths, c("all", "dyadic"))){
+    warning("lengths can only be all or dyadic.")
+    lengths <- "dyadic"
+  }
+  
+  if(lengths == "all"){
+    lengths <- 1:length(y)
+  }else{
+    #dyadic lengths
+    lengths <- c()
+    i <- 0
+    while(2^i <= length(y)){
+      lengths <- c(lengths, 2^i)
+      i <- i + 1
+    }
+  }
+  
+  #run treeSeg algorithm
   if(missing(q)){
     if(missing(alpha)){
       alpha = 0.1
     }
-      ans <- segTree(y = y, tree = tree, alpha = alpha, fam = fam)
+      ans <- segTree(y = y, lengths = lengths, tree = tree, alpha = alpha, fam = fam)
     }
   else{
-    ans <- segTree(y = y, tree = tree, q = q, fam = fam)
+    ans <- segTree(y = y, lengths = lengths, tree = tree, q = q, fam = fam)
   }
   
   if(length(ans) == 0){
-    print("Problem size too large.")
-    return(0)
+    stop("Problem size too large. Consider chosing a smaller alpha (or larger q) and set lengths = dyadic.")
   }
   
   #### prepare results in case of no change-point
@@ -149,6 +200,7 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
     return(list(numbAN = numbAN, mlAN = mlAN, mlP = mlP, confSetAN = confSetAN, confBandP = confBandP))
   }
   
+  #prepare results
   ans$minI <- ans$minI[-1]
   ans$comb <- ans$comb[-1]
   combCS <- ans$comb
@@ -228,6 +280,5 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder){
   
   }
   
-  #attr(ans, "combCS") <- combCS
   return(ans)
 }

@@ -42,29 +42,31 @@ BEGIN_RCPP
 END_RCPP
 }
 // bouPos
-double bouPos(int ny, int li, int ri);
-RcppExport SEXP _treeSeg_bouPos(SEXP nySEXP, SEXP liSEXP, SEXP riSEXP) {
+double bouPos(int li, int ri, int allInt, int liStart);
+RcppExport SEXP _treeSeg_bouPos(SEXP liSEXP, SEXP riSEXP, SEXP allIntSEXP, SEXP liStartSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type ny(nySEXP);
     Rcpp::traits::input_parameter< int >::type li(liSEXP);
     Rcpp::traits::input_parameter< int >::type ri(riSEXP);
-    rcpp_result_gen = Rcpp::wrap(bouPos(ny, li, ri));
+    Rcpp::traits::input_parameter< int >::type allInt(allIntSEXP);
+    Rcpp::traits::input_parameter< int >::type liStart(liStartSEXP);
+    rcpp_result_gen = Rcpp::wrap(bouPos(li, ri, allInt, liStart));
     return rcpp_result_gen;
 END_RCPP
 }
 // boundsCall
-List boundsCall(const Rcpp::NumericVector& x, double alpha, double q, int fam);
-RcppExport SEXP _treeSeg_boundsCall(SEXP xSEXP, SEXP alphaSEXP, SEXP qSEXP, SEXP famSEXP) {
+List boundsCall(const Rcpp::NumericVector& x, const Rcpp::NumericVector& lengths, double alpha, double q, int fam);
+RcppExport SEXP _treeSeg_boundsCall(SEXP xSEXP, SEXP lengthsSEXP, SEXP alphaSEXP, SEXP qSEXP, SEXP famSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type lengths(lengthsSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< double >::type q(qSEXP);
     Rcpp::traits::input_parameter< int >::type fam(famSEXP);
-    rcpp_result_gen = Rcpp::wrap(boundsCall(x, alpha, q, fam));
+    rcpp_result_gen = Rcpp::wrap(boundsCall(x, lengths, alpha, q, fam));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -205,17 +207,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // segTree
-List segTree(NumericVector y, List& tree, double q, double alpha, int fam);
-RcppExport SEXP _treeSeg_segTree(SEXP ySEXP, SEXP treeSEXP, SEXP qSEXP, SEXP alphaSEXP, SEXP famSEXP) {
+List segTree(NumericVector y, NumericVector lengths, List& tree, double q, double alpha, int fam);
+RcppExport SEXP _treeSeg_segTree(SEXP ySEXP, SEXP lengthsSEXP, SEXP treeSEXP, SEXP qSEXP, SEXP alphaSEXP, SEXP famSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type lengths(lengthsSEXP);
     Rcpp::traits::input_parameter< List& >::type tree(treeSEXP);
     Rcpp::traits::input_parameter< double >::type q(qSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< int >::type fam(famSEXP);
-    rcpp_result_gen = Rcpp::wrap(segTree(y, tree, q, alpha, fam));
+    rcpp_result_gen = Rcpp::wrap(segTree(y, lengths, tree, q, alpha, fam));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -271,8 +274,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treeSeg_addInMatrix", (DL_FUNC) &_treeSeg_addInMatrix, 2},
     {"_treeSeg_allComb", (DL_FUNC) &_treeSeg_allComb, 1},
     {"_treeSeg_ancestor", (DL_FUNC) &_treeSeg_ancestor, 2},
-    {"_treeSeg_bouPos", (DL_FUNC) &_treeSeg_bouPos, 3},
-    {"_treeSeg_boundsCall", (DL_FUNC) &_treeSeg_boundsCall, 4},
+    {"_treeSeg_bouPos", (DL_FUNC) &_treeSeg_bouPos, 4},
+    {"_treeSeg_boundsCall", (DL_FUNC) &_treeSeg_boundsCall, 5},
     {"_treeSeg_colSums", (DL_FUNC) &_treeSeg_colSums, 1},
     {"_treeSeg_getNewCandidates", (DL_FUNC) &_treeSeg_getNewCandidates, 6},
     {"_treeSeg_getOffspringTip", (DL_FUNC) &_treeSeg_getOffspringTip, 2},
@@ -284,7 +287,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_treeSeg_offspringDiff", (DL_FUNC) &_treeSeg_offspringDiff, 3},
     {"_treeSeg_offspringDiffTip", (DL_FUNC) &_treeSeg_offspringDiffTip, 3},
     {"_treeSeg_prepTree", (DL_FUNC) &_treeSeg_prepTree, 1},
-    {"_treeSeg_segTree", (DL_FUNC) &_treeSeg_segTree, 5},
+    {"_treeSeg_segTree", (DL_FUNC) &_treeSeg_segTree, 6},
     {"_treeSeg_sortComb", (DL_FUNC) &_treeSeg_sortComb, 2},
     {"_treeSeg_subsetSum", (DL_FUNC) &_treeSeg_subsetSum, 3},
     {"_treeSeg_vecmin", (DL_FUNC) &_treeSeg_vecmin, 1},
