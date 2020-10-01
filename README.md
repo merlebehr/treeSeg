@@ -1,7 +1,11 @@
 # treeSeg
 Tree structures, showing hierarchical relationships and the latent structures between samples, are ubiquitous. A common question in many studies is whether there is an association between a response variable measured on each sample and the latent group structure represented by the tree. *treeSeg* is a statistical method with statistical guarantees that tests for association between the response variable and the tree structure across all levels of the tree hierarchy with high power, while accounting for the overall false positive error rate. The method is based on multiscale change point approach (Frick et. al 2014) applied to the tree structures. The *treeSeg* algorithm is implemented as an R package.
 
-For more details about how *treeSeg* works please see the manuscript on bioArxiv "*treeSeg*: testing for dependence on tree structures" by Beher et. al. 
+For more details about how *treeSeg* works please see the manuscript 
+
+*Testing for dependence on tree structures*, Behr M, Ansari, M, Munk A, Holmes C. (2020) PNAS, doi:10.1073/pnas.1912957117.
+([Link to paper](https://www.pnas.org/content/117/18/9787)
+
 
 ## Using treeSeg as an R package
 
