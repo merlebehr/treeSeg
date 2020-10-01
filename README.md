@@ -3,8 +3,8 @@ Tree structures, showing hierarchical relationships and the latent structures be
 
 For more details about how *treeSeg* works please see the manuscript 
 
-*Testing for dependence on tree structures*, Behr M, Ansari, M, Munk A, Holmes C. (2020) PNAS, doi:10.1073/pnas.1912957117.
-([Link to paper](https://www.pnas.org/content/117/18/9787)
+*Testing for dependence on tree structures*, Behr M, Ansari M, Munk A, Holmes C. (2020) PNAS, doi:10.1073/pnas.1912957117.
+([Link to paper](https://www.pnas.org/content/117/18/9787))
 
 
 ## Using treeSeg as an R package
