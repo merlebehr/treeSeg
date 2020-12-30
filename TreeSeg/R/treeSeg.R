@@ -67,6 +67,10 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder, lengths, checkOrder = TRUE)
     stop("Tree which gives neighborhood structure of observations y is missing.")
   }
   
+  if(length(y) != length(tree$tip.label)){
+    stop("Number of tip nodes in tree has to be equal to length of observation vector y.")
+  }
+  
   if(checkOrder){
     #print('check consecutive order of tip nodes')
     ### check if tips are of consecutive order
@@ -185,6 +189,12 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder, lengths, checkOrder = TRUE)
     numbAN = 0
     mlAN = numeric(0)
     mean = mean(y)
+    
+    #if there is missing data, take original input length for output
+    if(missingData){
+      y <- yFull 
+    }
+    
     if(mean > ans$upper){
       mlP = rep(ans$upper, length(y))
     }
@@ -196,6 +206,10 @@ treeSeg<- function(y, tree, q, alpha, fam, tipOrder, lengths, checkOrder = TRUE)
     }
     confSetAN = numeric(0)
     confBandP = cbind(rep(ans$lower, length(y)), rep(ans$upper, length(y)))
+    
+    if(missingData){
+      confBandP[indMiss, ] <- matrix(rep(c(0,1), each = length(indMiss)), ncol = 2)
+    }
     
     return(list(numbAN = numbAN, mlAN = mlAN, mlP = mlP, confSetAN = confSetAN, confBandP = confBandP))
   }
