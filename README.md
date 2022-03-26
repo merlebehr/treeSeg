@@ -29,4 +29,4 @@ An example on how to use *treeSeg* on simulated data can be found in the jupyter
 # Help
 Do contact us if you need any help with using the software or when you have suggestion on how to improve the implementation.
 
-Email address: behr (at) berkeley (dot) edu
+Email address: mail (at) merlebehr (dot) org
