@@ -23,7 +23,7 @@ arma::umat mycombn(double n, double k) {
       ++h;
       j = linspace<uvec>(1, h, h);
     }
-    a.elem(k - h - 1 + j) = m + j;
+    a.elem(k - h + (j-1) ) = m + j;
     out.col(i) = a;
   }
   return(out);
